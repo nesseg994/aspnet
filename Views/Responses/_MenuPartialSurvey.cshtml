@@ -1,0 +1,11 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <ul class="nav">
+        <li> <div class="logo"> </div> </li>
+        <li> <a class="brand" href="/Profil_Parent/Index"> Return To My Profile </a> </li>
+        <li><a href="@Url.Action("Index", "DashboardParentSurvey")">Your Surveys</a></li>
+        <li><a href="@Url.Action("Index", "Reports")">Reports</a></li>
+        <li><a href="@Url.Action("Index", "Surveys")">Manage surveys</a></li>
+
+    </ul>
+}

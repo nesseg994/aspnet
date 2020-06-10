@@ -1,0 +1,65 @@
+﻿@model CloudKids.Domain.Entities.Reclamation
+@Html.DropDownList("ProfilParentId", (IEnumerable<SelectListItem>)ViewBag.Profil_Parent, htmlAttributes: new { @class = "form-control" })
+@Html.DropDownList("ProfilJardinId", (IEnumerable<SelectListItem>)ViewBag.Profil_Jardin, htmlAttributes: new { @class = "form-control" })
+
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<br /><br /><br /><br /><br /><br /><br /><br />
+<h2>Details</h2>
+
+
+
+
+<div class="post-blog">
+    <h3 class="post-title"><a href="blog-details.html" title="">@Html.DisplayFor(Model => Model.ProfilJardin.Name)</a></h3>
+
+    <span class="post-date"><i class="fa fa-picture-o"></i>@Html.DisplayFor(Model => Model.ProfilParent.Name)</span>
+    <div class="blog-post-info">
+        <ul class="post-tg">
+            <li class="ad-author">
+                <span>By</span>
+                <a href="#" title="" class="ad-name">@Html.DisplayFor(Model => Model.ProfilParent.Name)</a>
+            </li>
+
+            <li>
+                <i class="fa fa-tags"></i>
+                <a href="#" title="">@Html.DisplayFor(Model => Model.catreclamation)</a>
+
+            </li>
+            <li>
+                <i class="fa fa-tags"></i>
+                <a href="#" title="">Garden Email:  </a>
+                <a href="#" title="">@Html.DisplayFor(model => model.ProfilJardin.Email)</a>
+            </li>
+            <li>
+                <i class="fa fa-tags"></i>
+                <a href="#" title="">Location: </a>
+                <a href="#" title="">@Html.DisplayFor(model => model.ProfilJardin.Localisation)</a>
+            </li>
+
+            <li>
+                <i class="fa fa-tags"></i>
+                <a href="#" title="">Phone: </a>
+                <a href="#" title="">@Html.DisplayFor(model => model.ProfilJardin.Phone)</a>
+            </li>
+
+            <li>
+                <i class="fa fa-tags"></i>
+                <a href="#" title="">Address: </a>
+                <a href="#" title="">@Html.DisplayFor(model => model.ProfilJardin.Adresse.Street) ,@Html.DisplayFor(model => model.ProfilJardin.Adresse.CodePostal) </a>
+            </li>
+        </ul>
+        <p> @Html.DisplayFor(Model => Model.Motif) </p>
+
+
+
+
+
+
+        <p>
+          
+            @Html.ActionLink("Back to List", "Index")
+        </p>

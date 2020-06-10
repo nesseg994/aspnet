@@ -1,0 +1,81 @@
+﻿@model CloudKids.Domain.Entities.Reclamation
+@Html.DropDownList("ProfilJardinId", (IEnumerable<SelectListItem>)ViewBag.Profil_Jardin, htmlAttributes: new { @class = "form-control" })
+@Html.DropDownList("ProfilParentId", (IEnumerable<SelectListItem>)ViewBag.Profil_Parent, htmlAttributes: new { @class = "form-control" })
+
+@{
+    ViewBag.Title = "Delete";
+}
+<br /><br /><br /><br /><br /><br /><br /><br />
+
+<h2>Delete</h2>
+<section class="block2">
+    <div class="fixed-bg bg-4"></div>
+    <div class="container">
+        <div class="descp-sec">
+            <h3>Are you sure you want to  <span>‘delete  ’</span>this claim ?</h3>
+        </div><!--descp-sec end-->
+    </div>
+</section>
+<h3></h3>
+
+
+<div class="post-blog">
+    <h3 class="post-title"><a href="blog-details.html" title="">@Html.DisplayFor(Model => Model.ProfilJardin.Name)</a></h3>
+
+    <span class="post-date"><i class="fa fa-picture-o"></i>@Html.DisplayFor(Model => Model.ProfilParent.Name)</span>
+    <div class="blog-post-info">
+        <ul class="post-tg">
+            <li class="ad-author">
+                <span>By</span>
+                <a href="#" title="" class="ad-name">@Html.DisplayFor(Model => Model.ProfilParent.Name)</a>
+            </li>
+
+            <li>
+                <i class="fa fa-tags"></i>
+                <a href="#" title="">@Html.DisplayFor(Model => Model.catreclamation)</a>
+
+            </li>
+            <li>
+                <i class="fa fa-tags"></i>
+                <a href="#" title="">Garden Email:  </a>
+                <a href="#" title="">@Html.DisplayFor(model => model.ProfilJardin.Email)</a>
+            </li>
+            <li>
+                <i class="fa fa-tags"></i>
+                <a href="#" title="">Location: </a>
+                <a href="#" title="">@Html.DisplayFor(model => model.ProfilJardin.Localisation)</a>
+            </li>
+
+            <li>
+                <i class="fa fa-tags"></i>
+                <a href="#" title="">Phone: </a>
+                <a href="#" title="">@Html.DisplayFor(model => model.ProfilJardin.Phone)</a>
+            </li>
+
+            <li>
+                <i class="fa fa-tags"></i>
+                <a href="#" title="">Address: </a>
+                <a href="#" title="">@Html.DisplayFor(model => model.ProfilJardin.Adresse.Street) ,@Html.DisplayFor(model => model.ProfilJardin.Adresse.CodePostal) </a>
+            </li>
+        </ul>
+        <p> @Html.DisplayFor(Model => Model.Motif) </p>
+
+
+
+        @using (Html.BeginForm())
+            {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+
+
+       
+
+        
+
+            
+        </div>

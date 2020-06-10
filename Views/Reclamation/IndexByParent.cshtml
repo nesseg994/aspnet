@@ -1,0 +1,93 @@
+﻿@model IEnumerable<CloudKids.Domain.Entities.Reclamation>
+@Html.DropDownList("ProfilParentId", (IEnumerable<SelectListItem>)ViewBag.Profil_Jardin, htmlAttributes: new { @class = "form-control" })
+
+@{
+    ViewBag.Title = "IndexByParent";
+}
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<section class="block2">
+    <div class="fixed-bg bg-4"></div>
+    <div class="container">
+        <div class="descp-sec">
+            <h3>List of My  <span>‘claims ’</span>about gardens</h3>
+        </div><!--descp-sec end-->
+    </div>
+</section>
+
+
+
+
+
+
+
+
+<br /><br />
+<
+
+<div class="blog-post-info">
+    <br /> <br />
+    @Html.ActionLink("Create New ", "Create", new { @class = "btn btn-default btn-green" })
+</div>
+<br />
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+
+       
+
+
+
+        <div class="post-blog">
+            <h3 class="post-title"><a href="blog-details.html" title="">@Html.DisplayFor(modelItem => item.ProfilJardin.Name)</a></h3>
+
+            <span class="post-date"><i class="fa fa-picture-o"></i>@Html.DisplayFor(modelItem => item.ProfilParent.Name)</span>
+            <div class="blog-post-info">
+                <ul class="post-tg">
+                    <li class="ad-author">
+                        <span>By</span>
+                        <a href="#" title="" class="ad-name">@Html.DisplayFor(modelItem => item.ProfilParent.Name)</a>
+                    </li>
+
+                    <li>
+                        <i class="fa fa-tags"></i>
+                        <a href="#" title="">@Html.DisplayFor(modelItem => item.catreclamation)</a>
+
+                    </li>
+                </ul>
+                <p> @Html.DisplayFor(modelItem => item.Motif) </p>
+
+
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-default btn-green" })
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-default btn-green" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-default btn-green" })
+            </div><!--blog-post-info end-->
+        </div><!--post-blog end-->
+
+
+
+
+
+
+    }
+}
+    </table>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/html5lightbox.js"></script>
+<script type="text/javascript" src="lib/slick/slick.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/animate.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="revolution/css/settings.css">
+<link rel="stylesheet" type="text/css" href="revolution/css/navigation.css">
+<link rel="stylesheet" type="text/css" href="css/line-awesome.css">
+<link rel="stylesheet" type="text/css" href="css/line-awesome-font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="lib/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/responsive.css">

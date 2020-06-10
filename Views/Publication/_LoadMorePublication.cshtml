@@ -1,0 +1,228 @@
+﻿@model IEnumerable<CloudKids.Web.ViewModels.PublicationViewModel>
+
+
+
+<div class="" style="padding: 5px; margin: 10px;">
+    @if (Model != null)
+    {
+        foreach (var post in Model)
+        {
+            <article class="hentry post video post-blog" data-post-id="@post.PostId">
+                <span class="post-date"><i class="fa fa-picture-o"></i>@post.DatePosted</span>
+                <div style="-webkit-transform: translateX(450px);"> @*<span style="background-color: #114477; padding: 3px 10px; border-radius: 10px; color: #ffffff;"></span>*@</div>
+                <div class="post__author author vcard inline-items">
+
+                    <img src="@post.AbsolutePath/@post.AuthorAvatar" alt="author"> <!--Server.Path doesn't work (blocked:other error)-->
+                    <div class="author-date">
+                        <a class="h6 post__author-name fn" href="02-ProfilePage.html">@post.AuthorName</a>
+                        <div class="post__date">
+                            <time class="published">
+                                @post.DatePosted
+                            </time>
+                        </div>
+                    </div>
+                    <div class="more">
+                        <svg class="olymp-three-dots-icon"><use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use></svg>
+                        <ul class="more-dropdown">
+                            @*<li>
+                                    <a href="#">Edit Post</a>
+                                </li>
+                                <li>
+                                    <a href="#">Delete Post</a>
+                                </li>
+                                <li>
+                                    <a href="#">Turn Off Notifications</a>
+                                </li>
+                                <li>
+                                    <a href="#">Select as Featured</a>
+                                </li>*@
+                        </ul>
+                    </div>
+                    <div class="more">
+                        <svg class="olymp-three-dots-icon"><use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use></svg>
+                        <ul class="more-dropdown">
+                            @*<li>
+                                    <a href="#">Edit Post</a>
+                                </li>
+                                <li>
+                                    <a href="#">Delete Post</a>
+                                </li>
+                                <li>
+                                    <a href="#">Turn Off Notifications</a>
+                                </li>
+                                <li>
+                                    <a href="#">Select as Featured</a>
+                                </li>*@
+                        </ul>
+                    </div>
+                </div>
+
+                @if (post.Author.Id == post.CurrentUser.Id) // !!!!!!
+                {
+                    <p class="postInputEditable" data-post-id="@post.PostId" contenteditable="true">@post.Content </p>
+                }
+                else
+                {
+                    <p contenteditable="false">@post.Content </p>
+                }
+
+
+                @if (post.Tags.Any())
+                {
+                    var tagsArray = post.Tags.ToArray();
+                    <ul class="tagit-display">
+                        @for (var i = 0; i < tagsArray.Count(); i++)
+                        {
+                            var j = i % 5 + 1;
+                            <li class="tagit-choice-display color-@j"><span>@tagsArray[i].Name</span></li>
+                        }
+                        @*@foreach (var tag in post.Tags)
+                            {
+                                <li class="tagit-choice-display"><span>@tag.Name</span></li>
+                            }*@
+                    </ul>
+                }
+
+
+                @if (post.Author.Id == post.CurrentUser.Id)
+                {
+                    <a href="#" class="deletePost" data-post-id="@post.PostId"><span class="ti-trash" style="color: crimson;"></span></a>
+                }
+
+                @if (post.Image != null)
+                {
+                    string[] images = post.Image.Split(';');
+                    int totalCount = images.Length - 1;
+                    int count = 0;
+                    int plusOne = count + 1;
+                    <div class="slideshow-container mt-2" data-post-id="@post.PostId">
+
+                        @foreach (var image in images)
+                        {
+                            if (image != "")
+                            {
+                                @*<div class="post-img">
+                                        <img src="~/@image" alt="images here" style="width: 700px; height: auto;">
+                                    </div>*@<!--post-img end-->
+                                var ext = image.Split('.');
+                                if (!ext[1].Equals("mp4"))
+                                {
+                                    <div class="mySlides" data-id="@count" data-post-id="@post.PostId">
+                                        @if (plusOne == 1)
+                                        {
+                                            if (totalCount > 1)
+                                            {
+                                                <div data-id="@count" data-post-id="@post.PostId" class="numbertext active">@plusOne / @totalCount</div>
+                                            }
+                                            <img data-id="@count" data-post-id="@post.PostId" class="slide_image active" src="~/@image" style="width: 700px; height: auto;" alt="images here">
+                                        }
+                                        else
+                                        {
+                                            if (totalCount > 1)
+                                            {
+                                                <div data-id="@count" data-post-id="@post.PostId" class="numbertext inactive">@plusOne / @totalCount</div>
+                                            }
+                                            <img data-id="@count" data-post-id="@post.PostId" class="slide_image inactive" src="~/@image" style="width: 700px; height: auto;" alt="images here">
+                                        }
+                                        <div class="text"></div>
+                                    </div>
+                                    count++;
+                                    plusOne++;
+                                }
+                                else
+                                {
+                                    <video width="700" height="620" controls style="padding: 0; margin: 0; display: block;">
+                                        <source src="~/@image" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                }
+                            }
+                        }
+
+                    </div>
+                                                            <br>
+
+                    if (totalCount > 1)
+                    {
+                        int countDots = 0;
+                        int plusOneDots = 1;
+                        <div style="text-align: center">
+                            @while (totalCount-- > 0)
+                            {
+                                if (plusOneDots == 1)
+                                {
+                                    <a href='#'><span class="dot active" data-id="@countDots" data-post-id="@post.PostId"></span></a>
+                                }
+                                else
+                                {
+                                    <a href="#"><span class="dot" data-id="@countDots" data-post-id="@post.PostId"></span></a>
+                                }
+
+                                countDots++;
+                                plusOneDots++;
+                            }
+                        </div>
+                    }
+
+                }
+
+                <div class="post-additional-info inline-items">
+                    <a href="#" class="post-add-icon inline-items js-likes" data-post-id="@post.PostId">
+                        @if (post.IsLikedByCurrentUser)
+                        {
+                            <i class="fa fa-heart js-likes"></i>
+                        }
+                        else
+                        {
+                            <i class="ti-heart js-likes"></i>
+                        }
+
+                    </a>
+                    <ul class="friends-harmonic">
+                        @*{% if   post.UsersWhoLikedAPost() | length > 0%}
+                            {% for user in post.UsersWhoLikedAPost()  %}*@
+                        <li>
+                            @*{# <a href="#">
+                                    <img src="{{ asset('user.imageProfile') }}" alt="friend">
+                                </a>
+                                #}*@
+                        </li>
+                    </ul>
+
+                    <div class="names-people-likes" data-post-id="@post.PostId" style="left: -50px; margin-left: -50px;">
+                        @if (post.LikesCount > 0)
+                        {
+                            if (post.IsLikedByCurrentUser)
+                            {
+                                <a href="#" class='i-like-it' data-post-id="@post.PostId"> you @(post.LikesCount == 1 ? "" : "and") </a>
+                            }
+                            <br>
+                            @(post.IsLikedByCurrentUser ? (post.LikesCount == 1 ? "" : post.LikesCount + " people ") : post.LikesCount + " people ")
+
+                            <span>liked this</span>
+                        }
+                        else
+                        {
+                            <span>Be the first to like this</span>
+                        }
+                    </div>
+                    <div class="comments-shared commentsBtn" data-id="@post.PostId">
+                        <a href="#" class="post-add-icon inline-items js-comments" data-post-id="@post.PostId">
+                            <i class="ti-comments"></i>
+                            <span data-post-id="@post.PostId" class="commentCount">@post.CommentsCount</span>
+                        </a>
+
+                    </div>
+                </div>
+            </article>
+
+            <div>
+
+                <ul class="comments-list js-comments" data-id="@post.PostId"></ul>
+            </div>
+        }
+    }
+</div>
+
+  
+

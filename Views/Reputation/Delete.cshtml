@@ -1,0 +1,58 @@
+﻿@model CloudKids.Domain.Entities.Reputation
+
+@{
+    ViewBag.Title = "Delete";
+}
+<br /><br /><br /><br /><br /><br /><br /><br />
+<h2>Delete</h2>
+
+
+<div>
+
+    <hr />
+
+
+
+
+    <section class="pager-sec">
+        <div class="container">
+            <div class="pager-pag">
+                
+                <h4>Are you sure you want to delete this Reputation ?</h4>
+            <br />
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Delete" class="btn btn-default" /> 
+                        @Html.ActionLink("Back To List", "Index", new { @class = "btn btn-default btn-green" })
+                    </div>
+                }
+            </div><!--pager-pag end-->
+        </div>
+    </section><!--pager-sec end-->
+
+
+  
+</div>
+
+
+<link rel="stylesheet" type="text/css" href="css/animate.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="revolution/css/settings.css">
+<link rel="stylesheet" type="text/css" href="revolution/css/navigation.css">
+<link rel="stylesheet" type="text/css" href="css/line-awesome.css">
+<link rel="stylesheet" type="text/css" href="css/line-awesome-font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="lib/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/responsive.css">
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/slick/slick.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>

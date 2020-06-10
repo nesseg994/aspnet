@@ -1,0 +1,178 @@
+﻿
+<div id='xform' method="post" action="">
+    <div style="position: absolute; z-index: 10000;" class="modal fade" id="modalImageSearchForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        
+        <div id="loadingSearchBG" hidden>
+            @*<iframe id="loading-gif" src="https://giphy.com/embed/VseXvvxwowwCc" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/VseXvvxwowwCc"></a></p>*@
+        </div> <!--Loading-->
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold" style="color: #123840">Image Search</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3 mCustomScrollbar">
+                    <div id="loadingSearch" hidden>
+                        @*<iframe id="loading-gif" src="https://giphy.com/embed/VseXvvxwowwCc" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/VseXvvxwowwCc"></a></p>*@
+                    </div> <!--Loading-->
+                    <div class="validation-summary-errors" id="imageValidationErrors"></div>
+
+                    <div class="drop-image-area" id="drop-area-image-search">
+                        <form class="my-form" enctype="multipart/form-data">
+                            <p style="text-align: center;">Upload an image with the file dialog or by dragging and dropping the image onto the dashed region</p>
+                            <input class="fileInput" type="file" id="imageFileElem" accept="image/*" onchange="handleFilesSearch(this.files)"> @* onchange="handleFiles(this.files)"*@
+                            <label class="button-dragndrop" style="margin-left: 140px;" for="imageFileElem">Select an image file</label>
+                        </form>
+                        <progress class="progress-bar-files" id="progress-bar-image-search" max=100 value=0 style="display: block;"></progress>
+                        <div class="image-files-gallery" id="gallery-image-search"></div>
+                    </div>
+
+                    <div class="md-form">
+                        <label data-error="wrong" data-success="right" for="form8"></label>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button id="searchImageBtn" type="submit" class="btn btn-unique btn-default">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<script>
+    //var filesList;
+    var filesDoneSearch = 0;
+    var filesToDoSearch = 0;
+    var progressBarSearch = document.getElementById('progress-bar-image-search');
+
+    var dropAreaSearch = document.getElementById('drop-area-image-search');
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropAreaSearch.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    // highlight drop area when file is dropped
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropAreaSearch.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropAreaSearch.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlightSearch(e) {
+        dropAreaSearch.classList.add('highlight');
+    }
+
+    function unhighlightSearch(e) {
+        dropAreaSearch.classList.remove('highlight');
+    }
+
+    // When files are dropped
+    dropAreaSearch.addEventListener('drop', handleDrop, false);
+
+    function handleDropSearch(e) {
+        var dtSearch = e.dataTransfer;
+        var filesSearch = dt.files;
+
+        handleFilesSearch(files);
+    }
+
+    // Handle uploaded files
+    function handleFilesSearch(files) {
+        files = [...files];
+        //filesList.add(files); 
+        console.log("length files " + files.length);
+        initializeProgressSearch(files.length); // progress bar
+        if (files.length > 0) {
+            //files.forEach(uploadFile);
+            files.forEach(progressDoneSearch);
+            files.forEach(previewFileSearch);
+        }
+    }
+
+    function uploadFileSearch(file) {
+        //var url = '/api/Publication/Upload';
+        var url = '/Publication/Upload/';
+        var formData = new FormData();
+
+        formData.append(file.name, file);
+
+        //console.log("Length " + file.length);
+
+        //if (file.length > 0) {
+        //    console.log("Here ");
+        //    formData.append(file.name, file);
+        //}
+
+
+
+        //formData.values().forEach(pair => console.log("FormData " + pair[0] + ' - ' + pair[1]));
+
+        //fetch(url, // ajax ?
+        //        {
+        //            method: 'POST',
+        //            body: formData
+        //        })
+        //    .then((data) => {
+        //        progressDone();
+        //        var response = jQuery.parseJSON(data);
+        //        console.log("Uploaded " + response);
+        //    }) // progress bar
+        //    .catch(() => { /* Error. Inform the user */ });
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            contentType: false,
+            processData: false,
+            data: formData
+        })
+            .done(function (data) {
+                progressDone();
+                //var response = jQuery.parseJSON(data);
+                console.log("Uploaded " + data);
+            })
+            .fail(function (xhr, status, error) {
+                console.log("U Error " + xhr + " " + status + " " + error);
+            });
+
+    }
+
+    // Preview uploaded images
+    function previewFileSearch(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = function () {
+            var img = document.createElement('img');
+            img.src = reader.result;
+            document.getElementById('gallery-image-search').appendChild(img);
+        }
+    }
+
+    // Progress bar
+    function initializeProgressSearch(numfiles) {
+        progressBarSearch.value = 0;
+        filesDoneSearch = 0;
+        filesToDoSearch = numfiles;
+    }
+
+    function progressDoneSearch() {
+        filesDoneSearch++;
+        progressBarSearch.value = filesDoneSearch / filesToDoSearch * 100;
+    }
+
+</script>
+

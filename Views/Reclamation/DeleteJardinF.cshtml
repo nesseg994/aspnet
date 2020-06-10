@@ -1,0 +1,74 @@
+﻿@model IEnumerable<CloudKids.Domain.Entities.Reclamation>
+
+@{
+    ViewBag.Title = "Index";
+}
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<section class="block2">
+    <div class="fixed-bg bg-4"></div>
+    <div class="container">
+        <div class="descp-sec">
+            <h3>List of all  <span>‘claim  ’</span>about gardens</h3>
+        </div><!--descp-sec end-->
+    </div>
+</section>
+</br> </br> </br>
+
+
+<div class="form-group">
+
+    @using (Html.BeginForm("Myreclmation", "Reclamation", FormMethod.Post))
+    {
+
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.DropDownList("ProfilJardinId", (IEnumerable<SelectListItem>)ViewBag.Profil_Jardin, htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <button id="ahmed1" type="submit"><i class="fa fa-search"></i></button>
+    }
+</div>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProfilJardin.Email)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Motif)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.catreclamation)
+        </th>
+        <th></th>
+    </tr>
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProfilJardin.Email)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Motif)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.catreclamation)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    }
+</table>

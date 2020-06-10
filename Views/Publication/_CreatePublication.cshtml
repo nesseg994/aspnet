@@ -1,0 +1,191 @@
+﻿@model CloudKids.Domain.Entities.Publication
+@*@using (Ajax.BeginForm("Create", "Publication", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onSuccessAddPost", OnFailure = "onFailureAddPost" }))
+    {
+        @Html.AntiForgeryToken()*@ @*Cannot upload image with it cause doesn't support the encoding that is needed*@
+<div id='xform' method="post" action="">
+    <div style="position: absolute; z-index: 10000;" class="modal fade" id="modalPostForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document"> <!--modal-dialog-scrollable-->
+
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold" style="color: #123840">Add a Post</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3 mCustomScrollbar">
+                    <div class="validation-summary-errors"></div>
+                    @Html.ValidationSummary(true, "Please fix the following errors.", new { @class = "text-danger text-center" })
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Contenu, new { @class = "form-control text-center", id = "txtMessage", placeholder = "What's on your mind today ?", style = "margin-left: 60px" })
+                            @Html.ValidationMessageFor(model => model.Contenu, "Give it a try ! Say what's on your mind..", new { @class = "text-danger text-center" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-10">
+                            <div class="md-form mb-5">
+                                <label data-error="wrong" data-success="right" for="form34"></label>
+                                <ul id="tags" data-prototype-field-name="" style="margin-left: 118px;"></ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="drop-image-area" id="drop-area">
+                                <form class="my-form" enctype="multipart/form-data">
+                                    <p style="text-align: center;">Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region</p>
+                                    <input class="fileInput" type="file" id="fileElem" multiple accept="audio/*|video/*|image/*" onchange="handleFiles(this.files)"> @* onchange="handleFiles(this.files)"*@
+                                    <label class="button-dragndrop" style="margin-left: 140px;" for="fileElem">Select some files</label>
+                                </form>
+                                <progress class="progress-bar-files" id="progress-bar" max=100 value=0 style="display: block;"></progress>
+                                <div class="image-files-gallery" id="gallery"></div>
+                            </div>
+
+                            <div class="md-form">
+                                <label data-error="wrong" data-success="right" for="form8"></label>
+
+                            </div>
+
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button id="addPostBtn" type="submit" class="btn btn-unique btn-default">Create</button>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+</div>
+@*}*@
+
+
+
+<script>
+    //var filesList;
+    var filesDone = 0;
+    var filesToDo = 0;
+    var progressBar = document.getElementById('progress-bar');
+
+    var dropArea = document.getElementById('drop-area');
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    // highlight drop area when file is dropped
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false);
+    });
+
+    function highlight(e) {
+        dropArea.classList.add('highlight');
+    }
+
+    function unhighlight(e) {
+        dropArea.classList.remove('highlight');
+    }
+
+    // When files are dropped
+    dropArea.addEventListener('drop', handleDrop, false);
+
+    function handleDrop(e) {
+        var dt = e.dataTransfer;
+        var files = dt.files;
+
+        handleFiles(files);
+    }
+
+    // Handle uploaded files
+    function handleFiles(files) {
+        files = [...files];
+        //filesList.add(files); 
+        console.log("length files " + files.length);
+        initializeProgress(files.length); // progress bar
+        if (files.length > 0) {
+            //files.forEach(uploadFile);
+            files.forEach(progressDone);
+            files.forEach(previewFile);
+        }
+    }
+
+    function uploadFile(file) {
+        //var url = '/api/Publication/Upload';
+        var url = '/Publication/Upload/';
+        var formData = new FormData();
+
+        formData.append(file.name, file);
+
+        //console.log("Length " + file.length);
+
+        //if (file.length > 0) {
+        //    console.log("Here ");
+        //    formData.append(file.name, file);
+        //}
+
+        
+
+        //formData.values().forEach(pair => console.log("FormData " + pair[0] + ' - ' + pair[1]));
+
+        //fetch(url, // ajax ?
+        //        {
+        //            method: 'POST',
+        //            body: formData
+        //        })
+        //    .then((data) => {
+        //        progressDone();
+        //        var response = jQuery.parseJSON(data);
+        //        console.log("Uploaded " + response);
+        //    }) // progress bar
+        //    .catch(() => { /* Error. Inform the user */ });
+
+        $.ajax({
+                type: "POST",
+                url: url,
+                contentType: false,
+                processData: false,
+                data: formData
+            })
+            .done(function (data) {
+                progressDone();
+                //var response = jQuery.parseJSON(data);
+                console.log("Uploaded " + data);
+            })
+            .fail(function (xhr, status, error) {
+                console.log("U Error " + xhr + " " + status + " " + error);
+            });
+            
+    }
+
+    // Preview uploaded images
+    function previewFile(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = function () {
+            var img = document.createElement('img');
+            img.src = reader.result;
+            document.getElementById('gallery').appendChild(img);
+        }
+    }
+
+    // Progress bar
+    function initializeProgress(numfiles) {
+        progressBar.value = 0;
+        filesDone = 0;
+        filesToDo = numfiles;
+    }
+
+    function progressDone() {
+        filesDone++;
+        progressBar.value = filesDone / filesToDo * 100;
+    }
+
+</script>

@@ -1,0 +1,129 @@
+﻿@model CloudKids.Domain.Entities.Publication
+
+
+<div id='xform' method="post" action="">
+    <div style="position: absolute; z-index: 10000;" class="modal fade" id="modalPostSearchForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+
+        <div id="loadingSearchPostBG" hidden>
+            @*<iframe id="loading-gif" src="https://giphy.com/embed/VseXvvxwowwCc" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/VseXvvxwowwCc"></a></p>*@
+        </div> <!--Loading-->
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold" style="color: #123840">Post Search</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3 mCustomScrollbar">
+                    <div id="loadingSearchPost" hidden>
+                        @*<iframe id="loading-gif" src="https://giphy.com/embed/VseXvvxwowwCc" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/VseXvvxwowwCc"></a></p>*@
+                    </div> <!--Loading-->
+                    <div class="validation-summary-errors" id="searchPostValidationErrors"></div>
+
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <td>
+                                @*<input class="input_box_input mb-2" placeholder="Post Containing words..." type="text" >*@
+                                <label class="label-datepicker mb-2">
+                                    <input id="wordsSearch" type="text" required="required"/>
+                                    <span>Post containing words...</span>
+                                </label>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td>
+                                @*<input class="input_box_input mb-2" placeholder="Written by" type="text">*@
+                                <label class="label-datepicker mb-2">
+                                    <input id="authorSearch" type="text" required="required"/>
+                                    <span>Written by</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @*<input class="input_box_input mb-2" placeholder="Has comments of user..." type="text">*@
+                                <label class="label-datepicker mb-2">
+                                    <input id="commentedBySearch" type="text" required="required"/>
+                                    <span>Commented by user...</span>
+                                </label>
+                            </td>
+                        </tr>
+                            @*
+    <tr>
+        <td>
+            <label class="label-datepicker mb-2">
+                <input id="dateSearch" type="text" class="dateselect" required="required"/>
+                <span>Date</span>
+            </label>
+        </td>
+    </tr>
+                            *@
+                        <tr>
+                            <td>
+                                <label class="label-datepicker mb-2">
+                                    <label data-error="wrong" data-success="right" for="form34"></label>
+                                    <ul id="tagsSearch" data-prototype-field-name="" style="margin-left: 25px; width: 500px;"></ul>
+                                </label>
+                            </td>
+                        </tr>
+                        @*<div class="form-group">
+                            <div class="col-md-10">
+                                <div class="md-form mb-5">
+                                    <label data-error="wrong" data-success="right" for="form34"></label>
+                                    <ul id="tagsSearch" data-prototype-field-name="" style="margin-left: 118px;"></ul>
+                                </div>
+                            </div>
+                        </div>*@
+                        
+                        <tr>
+                            <td>
+                                <label class="input_checkbox-label mb-2">
+                                    <input id="likedByMeSearch" type="checkbox">
+                                    <span class="input_checkbox-custom rectangular"></span>
+                                </label>
+                                <div class="input_checkbox-title">Is it a post that you liked ?</div>
+                            </td>
+                        </tr>
+                        
+                            <tr>
+                                <td>
+                                    <label class="input_checkbox-label mb-2">
+                                        <input id="popularSearch" type="checkbox">
+                                        <span class="input_checkbox-custom rectangular"></span>
+                                    </label>
+                                    <div class="input_checkbox-title">Is it a popular post ?</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="md-form">
+                        <label data-error="wrong" data-success="right" for="form8"></label>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button id="searchPostBtn" type="submit" class="btn btn-unique btn-default">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    //var datepicker = document.getElementsByClassName("dateselect");
+
+    //datepicker.datepicker({
+    //    format: 'mm/dd/yyyy'
+    //    // startDate: '-3d'
+    //});
+
+    //var $j = jQuery.noConflict();
+    //$j("#datepicker").datepicker();
+</script>

@@ -1,0 +1,139 @@
+﻿@model IEnumerable<CloudKids.Domain.Entities.Reclamation>
+@Html.DropDownList("ProfilParentId", (IEnumerable<SelectListItem>)ViewBag.Profil_Parent, htmlAttributes: new { @class = "form-control" })
+
+@{
+    ViewBag.Title = "Myreclamation";
+}
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+<section class="block2">
+    <div class="fixed-bg bg-4"></div>
+    <div class="container">
+        <div class="descp-sec">
+            <h3>List of all  <span>‘claim  ’</span>about <span>‘@ViewBag.Profil_Jardin1.Name  ’</span></h3>
+        </div><!--descp-sec end-->
+    </div>
+</section>
+</br>
+
+
+
+
+@if (@ViewBag.num > 2)
+{
+
+
+    <div class="container">
+        <div class="cms-accordion st2 toggle">
+            <div class="toggle-item cl1">
+                <h2 class="clr1"><i class="fa fa-child"></i> Important</h2>
+                <div class="content">
+                    <center>
+                        <h1>this garden has reached @ViewBag.num claims </h1>
+                        <br />
+                        <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                            <center>
+                                @Html.ActionLink("Delete jardin", "Deletejardin", new { id = @ViewBag.idjardin }, new { @class = "btn btn-default btn-green" })
+
+
+                            </center>
+                        </div>
+                    </center>
+                </div>
+            </div><!-- Toggle Item -->
+
+
+        </div>
+    </div>
+}
+
+
+<div class="form-group">
+
+    @using (Html.BeginForm("Myreclmation", "Reclamation", FormMethod.Post))
+    {
+
+        <div class="form-group">
+
+            <div class="col-md-10">
+                @Html.DropDownList("ProfilJardinId", (IEnumerable<SelectListItem>)ViewBag.Profil_Jardin, htmlAttributes: new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <button id="ahmed1" type="submit"><i class="fa fa-search"></i></button>
+    }
+</div>
+</br>
+
+   @if (Model != null)
+   {
+       foreach (var item in Model)
+       {
+
+
+
+
+
+        <div class="post-blog">
+            <h3 class="post-title"><a href="blog-details.html" title="">@ViewBag.Profil_Jardin1.Name</a></h3>
+
+            <span class="post-date"><i class="fa fa-picture-o"></i>@Html.DisplayFor(modelItem => item.ProfilParent.Name)</span>
+            <div class="blog-post-info">
+                <ul class="post-tg">
+                    <li class="ad-author">
+                        <span>By</span>
+                        <a href="#" title="" class="ad-name">@Html.DisplayFor(modelItem => item.ProfilParent.Name)</a>
+                    </li>
+
+                    <li>
+                        <i class="fa fa-tags"></i>
+                        <a href="#" title="">@Html.DisplayFor(modelItem => item.catreclamation)</a>
+
+                    </li>
+                </ul>
+                <p> @Html.DisplayFor(modelItem => item.Motif) </p>
+
+
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-default btn-green" })
+            </div><!--blog-post-info end-->
+        </div><!--post-blog end-->
+
+
+
+
+
+
+       }
+
+   }
+
+
+
+<style>
+    a.classname
+    {
+        background: url(../Images/image.gif) no-repeat top left;
+        display: block;
+        width: 150px;
+        height: 150px;
+        text-indent: -9999px; /* hides the link text */
+    }
+</style>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link rel="stylesheet" type="text/css" href="css/animate.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="revolution/css/settings.css">
+<link rel="stylesheet" type="text/css" href="revolution/css/navigation.css">
+<link rel="stylesheet" type="text/css" href="css/line-awesome.css">
+<link rel="stylesheet" type="text/css" href="css/line-awesome-font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="lib/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/responsive.css">
+

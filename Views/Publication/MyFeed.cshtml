@@ -1,0 +1,398 @@
+﻿@using System.Text
+@using System.Web.Configuration
+@using CloudKids.Domain.Entities
+@using CloudKids.Web.Helpers
+@using CloudKids.Web.ViewModels
+@model IEnumerable<CloudKids.Web.ViewModels.PublicationViewModel>
+
+@{
+    ViewBag.Title = "MyFeed";
+    Layout = "~/Views/Shared/_LayoutPublication.cshtml";
+}
+
+
+
+@*<section class="pager-sec ">
+    <div class="container">
+        <div class="pager-pag" style="padding-top: 165px">
+            <h3>My Feed</h3>
+            <h4></h4>
+        </div><!--pager-pag end-->
+    </div>
+</section><!--pager-sec end-->*@
+
+<div id="displayForm"></div>
+<div style="background-color: #ffffff">
+    
+<div class="content-panel">
+    <div class="content-panel-close">
+        @*<i class="os-icon os-icon-close"></i>*@
+    </div>
+    <div class="element-wrapper">
+        <h6 class="element-header">
+                
+        </h6>
+        <div class="element-box-tp">
+            <div class="el-buttons-list full-width">
+                @*<a onclick="displayNewPostForm()" href="#">
+        <span class="btn btn-white btn-sm" data-toggle="modal" data-target="#modalPostForm" href="#"><i class="os-icon os-icon-window-content"></i><span>Add Post</span></span>
+    </a>*@
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="content-i">
+<div class="content-box content-middle-box">
+<div class="element-wrapper element-svg-part top-part-icon-sec">
+<div class="user-profile">
+@*<div class="up-controls" style="overflow: auto; white-space: nowrap; scrollbar-highlight-color: #0df6d8">*@
+<div class="pager-sec">
+    <div class="pager-pag" style="padding-top: 165px">
+        <div class="row">
+            <ul class="tags">
+                                   
+            </ul>
+        </div>
+    </div><!--pager-pag end-->
+</div>
+<div class="content-panel">
+    <div class="content-panel-close">
+        <i class="os-icon os-icon-close"></i>
+    </div>
+    <div class="element-wrapper" >
+        <h6 class="element-header">
+            Quick Links
+        </h6>
+        <div class="element-box-tp" >
+            <div class="el-buttons-list full-width">
+                <a onclick="displayNewPostForm()" href="#">
+                    <span class="btn btn-warmpink btn-sm" data-toggle="modal" data-target="#modalPostForm" href="#"><i class="os-icon os-icon-window-content"></i><span>Add Post</span></span>
+                </a>
+                <a onclick="displaySearchImageForm()" href="#">
+                    <span class="btn btn-blueciel btn-sm" data-toggle="modal" data-target="#modalImageSearchForm" href="#"><i class="os-icon os-icon-window-content"></i><span>Search by Image</span></span>
+                </a>
+                <a href="#">
+                    <span class="btn btn-modernblue btn-sm" data-toggle="modal" data-target="#modalPostSearchForm" href="#"><i class="os-icon os-icon-window-content"></i><span>Search Post</span></span>
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    
+
+</div>
+    
+<div class="content-panel ml-5" style="float: right;">
+    <div class="content-panel-close">
+        <i class="os-icon os-icon-close"></i>
+    </div>
+    <div class="element-wrapper">
+        <h6 class="element-header">
+            Sort By
+            <button class="hamburger">&#9776;</button>
+            <button class="cross">&#735;</button>
+        </h6>
+        
+        <div class="burger-menu">
+            <ul>
+                <a href="#" id="sortNewest"><li>Date Added (Newest)</li></a>
+                <a href="#" id="sortOldest"><li>Date Added (Oldest)</li></a>
+                <a href="#" id="sortInterests"><li>My Interests</li></a>
+                <a href="#" id="sortMostLiked"><li>Most Liked (In General)</li></a>
+                <a href="#" id="sortLikedByUser"><li>Liked (By Me)</li></a>
+                <a href="#" id="sortMostCommented"><li>Most Commented (In General)</li></a>
+                <a href="#" id="sortCommentedByUser"><li>Commented (By Me)</li></a>
+            </ul>
+        </div> 
+    </div>
+</div>
+
+<div id="timeline" class="up-contents">
+<div class="">
+<div class="row">
+<!-- Main Content -->
+<div class="timeline">
+<div id="articles" class="ui-block" style="padding: 5px; margin: 10px;">
+@if (Model != null)
+{
+    foreach (var item in Model.Batch(9))
+    {
+        foreach (var post in item)
+        {
+            <div data-post-id="@post.PostId" class="postAlertDiv"></div>
+            <article class="hentry post video post-blog" data-post-id="@post.PostId">
+            <span class="post-date"><i class="fa fa-picture-o"></i>@post.DatePosted</span>
+            <div style="-webkit-transform: translateX(450px);"> @*<span style="background-color: #114477; padding: 3px 10px; border-radius: 10px; color: #ffffff;"></span>*@</div>
+            <div class="post__author author vcard inline-items">
+
+                @*<img src="@post.AbsolutePath/@post.AuthorAvatar" alt="author">*@ <!--Server.Path doesn't work (blocked:other error)-->
+                <img src="@post.AuthorAvatar" alt="author"> 
+                <div class="author-date">
+                    <a class="h6 post__author-name fn" href="02-ProfilePage.html">@post.AuthorName</a>
+                    <div class="post__date">
+                        <time class="published">
+                            @post.DatePosted
+                        </time>
+                    </div>
+                </div>
+                <div class="more">
+                    <svg class="olymp-three-dots-icon"><use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use></svg>
+                    <ul class="more-dropdown">
+                        @*<li>
+                                                                        <a href="#">Edit Post</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#">Delete Post</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#">Turn Off Notifications</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#">Select as Featured</a>
+                                                                    </li>*@
+                    </ul>
+                </div>
+                <div class="more">
+                    <svg class="olymp-three-dots-icon"><use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use></svg>
+                    <ul class="more-dropdown">
+                        @*<li>
+                                                                        <a href="#">Edit Post</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#">Delete Post</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#">Turn Off Notifications</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#">Select as Featured</a>
+                                                                    </li>*@
+                    </ul>
+                </div>
+            </div>
+
+            @if (post.Author.Id == post.CurrentUser.Id) // !!!!!!
+            {
+                <p class="postInputEditable" data-post-id="@post.PostId" contenteditable="true">@post.Content </p>
+            }
+            else
+            {
+                <p contenteditable="false">@post.Content </p>
+            }
+                                                        
+            @{
+                var tagsArray = @post.TagsNames.Split(',');
+            }   
+
+            @if (@tagsArray.Any()) // was @post.Tags.Ay() but changed it cause of json (common fct)
+            {
+                <ul class="tagit-display">
+                    @for (var i = 0; i < tagsArray.Count(); i++)
+                    {
+                        var j = i % 5 + 1;
+                        <li class="tagit-choice-display color-@j"><span>@tagsArray[i]</span></li>
+                    }
+                    @*@foreach (var tag in post.Tags)
+                                                                    {
+                                                                        <li class="tagit-choice-display"><span>@tag.Name</span></li>
+                                                                    }*@
+                </ul>
+            }
+                                                                
+
+            @if (post.Author.Id == post.CurrentUser.Id)
+            {
+                <a href="#" class="deletePost" data-post-id="@post.PostId"><span class="ti-trash" style="color: crimson;"></span></a>
+            }
+                                                        
+            @if(post.Images != null)
+            {
+                //string[] images = post.Image.Split(';');
+                string[] images = post.Images.Split('#');
+                string[] extensions = post.Extensions.Split('#');
+                int countForExtension = 0;
+                int totalCount = images.Length - 1;
+                int count = 0;
+                int plusOne = count + 1;
+                <div class="slideshow-container mt-2" data-post-id="@post.PostId">
+
+                    @foreach (var image in images)
+                    {
+                        if (image != "")
+                        {
+                                                                        @*<div class="post-img">
+                                                                            <img src="~/@image" alt="images here" style="width: 700px; height: auto;">
+                                                                        </div>*@<!--post-img end-->
+
+                            //var base64 = Convert.ToBase64String(Encoding.ASCII.GetBytes(image));
+                            var ext = extensions[countForExtension].Split('.');
+                            countForExtension += 1;
+                            var imgSrc = String.Format("data:image/"+ ext[1] +";base64,{0}", image);
+
+                            if (!ext[1].Equals("mp4"))
+                            {
+                                <div class="mySlides" data-id="@count" data-post-id="@post.PostId">
+                                    @if (plusOne == 1)
+                                    {
+                                        if (totalCount > 1)
+                                        {
+                                            <div data-id="@count" data-post-id="@post.PostId" class="numbertext active">@plusOne / @totalCount</div>
+                                        }
+                                        <img data-id="@count" data-post-id="@post.PostId" class="slide_image active" src="@imgSrc" style="width: 700px; height: auto;" alt="images here">
+                                    }
+                                    else
+                                    {
+                                        if (totalCount > 1)
+                                        {
+                                            <div data-id="@count" data-post-id="@post.PostId" class="numbertext inactive">@plusOne / @totalCount</div>
+                                        }
+                                        <img data-id="@count" data-post-id="@post.PostId" class="slide_image inactive" src="@imgSrc" style="width: 700px; height: auto;" alt="images here">
+                                    }
+                                    <div class="text"></div>
+                                </div>
+                                count++;
+                                plusOne++;
+                            }
+                            else
+                            {
+                                <video width="700" height="620" controls style="padding: 0; margin: 0; display: block;">
+                                    <source src="@imgSrc" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            }
+                        }
+                    }
+
+                </div>
+                <br>
+
+                if (totalCount > 1)
+                {
+                    int countDots = 0;
+                    int plusOneDots = 1;
+                    <div style="text-align: center">
+                        @while (totalCount-- > 0)
+                        {
+                            if (plusOneDots == 1)
+                            {
+                                <a href='#'><span class="dot active" data-id="@countDots" data-post-id="@post.PostId"></span></a>
+                            }
+                            else
+                            {
+                                <a href="#"><span class="dot" data-id="@countDots" data-post-id="@post.PostId"></span></a>
+                            }
+
+                            countDots++;
+                            plusOneDots++;
+                        }
+                    </div>
+                }
+
+            }
+
+            <div class="post-additional-info inline-items">
+                <a href="#" class="post-add-icon inline-items js-likes" data-post-id="@post.PostId">
+                    @if (post.IsLikedByCurrentUser)
+                    {
+                        <i class="fa fa-heart js-likes"></i>
+                    }
+                    else
+                    {
+                        <i class="ti-heart js-likes"></i>
+                    }
+
+                </a>
+                @*Users who liked it !!!!*@
+                <ul class="friends-harmonic">
+                                                                
+                    <li>
+                                                                   
+                    </li>
+                </ul>
+
+                <div class="names-people-likes" data-post-id="@post.PostId" style="left: -50px; margin-left: -50px;">
+                    @if (post.LikesCount > 0)
+                    {
+                        if (post.IsLikedByCurrentUser)
+                        {
+                            <a href="#" class='i-like-it' data-post-id="@post.PostId"> you @(post.LikesCount == 1 ? "" : "and") </a>
+                        }
+                        <br>
+                        @(post.IsLikedByCurrentUser ? (post.LikesCount == 1 ? "" : post.LikesCount + " people ") : post.LikesCount + " people ")
+                                                                    
+                        <span>liked this</span>
+                    }
+                    else
+                    {
+                        <span>Be the first to like this</span>
+                    }
+                </div>
+                <div class="comments-shared commentsBtn" data-id="@post.PostId">
+                    <a href="#" class="post-add-icon inline-items js-comments" data-post-id="@post.PostId">
+                        <i class="ti-comments"></i>
+                        <span data-post-id="@post.PostId" class="commentCount">@post.CommentsCount</span>
+                    </a>
+
+                </div>
+            </div>
+            </article>
+            <div>
+
+                <ul class="comments-list js-comments" data-id="@post.PostId"></ul>
+            </div>
+        }
+    }
+
+}
+
+</div>
+
+@*<a href="#" class="btn btn-control btn-more"><svg class="olymp-three-dots-icon"><use xlink:href="icons/icons.svg#olymp-three-dots-icon"></use></svg></a>*@
+<a href="#" class="btn btn-crimson btn-more" id="loadMore">
+    <i class="ti-more"></i>
+    <span>
+        <img id="loading" style="display: none;" src="~/Content/images/ajax-loader.gif" />
+    </span>
+</a>
+</div>
+
+<!-- ... end Main Content -->
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+        
+</div>
+
+</div>
+
+
+
+@*Add Post Partial View*@
+@{ Html.RenderAction("CreatePub"); }
+@{ Html.RenderAction("ImageSearch");}
+@{ Html.RenderAction("PostSearch");}
+
+@section scripts {
+    <script src="~/Scripts/js/LoadMore.js"></script>
+    <script src="~/Scripts/js/comment.js"></script>
+    <script src="~/Scripts/js/post.js"></script>
+    
+    <script>
+        //var $j = jQuery.noConflict();
+        //$j(".dateselect").datepicker();
+        (function ($) {
+            var datepicker = document.getElementsByClassName("dateselect");
+
+            $(".dateselect").datepicker({
+                format: 'mm/dd/yyyy'
+                // startDate: '-3d'
+            });
+        })(jQuery);
+    </script>
+   
+}

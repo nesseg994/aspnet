@@ -1,0 +1,210 @@
+﻿@model IEnumerable<CloudKids.Domain.Entities.Reputation>
+@Html.DropDownList("ProfilJardinId1", (IEnumerable<SelectListItem>)ViewBag.Profil_Jardin1, htmlAttributes: new { @class = "form-control" })
+
+
+
+
+@{
+    ViewBag.Title = "Index";
+}
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<section class="pager-sec">
+    <div class="container">
+        <div class="pager-pag">
+            <h3 class="no-mg">Reputation</h3>
+        </div><!--pager-pag end-->
+    </div>
+</section><!--pager-sec end-->
+<br />
+<div>
+
+
+
+
+    @using (Html.BeginForm("order", "Reputation", FormMethod.Post))
+    {
+
+        List<SelectListItem> listItems = new List<SelectListItem>();
+        listItems.Add(new SelectListItem
+        {
+            Text = "Prix",
+            Value = "Prix"
+        });
+        listItems.Add(new SelectListItem
+        {
+            Text = "Type",
+            Value = "Type",
+            Selected = true
+        });
+
+        @Html.DropDownList("orderr", listItems, new { @class = "form-control" })
+        <button id="ahmed" class="button button3" type="submit"> SORT</button>
+    }
+
+
+
+
+
+
+    <br />
+
+
+    @using (Html.BeginForm("MyReputation", "Reputation", FormMethod.Post))
+    {
+
+
+
+
+        @Html.DropDownList("ProfilJardinId", (IEnumerable<SelectListItem>)ViewBag.Profil_Jardin, htmlAttributes: new { @class = "form-control" })
+
+
+
+        <button id="ahmed1" class="button button3" type="submit"> FIND</button>
+
+
+    }
+
+</div>
+
+
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+
+        <section class="block5">
+            <div class="container">
+                <div class="more-services st2">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                            <div class="services_details">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="srvc-img">
+                                            @{string path = "~/images/resources/sv-img1.jpg";}
+                                            <img src="@Url.Content(path)" width="50" height="50" />
+
+                                            <div class="specs-fig">
+                                                <ul>
+                                                    <li>
+                                                        <h3>TYPE :<br> @Html.DisplayFor(modelItem => item.Type)</h3>
+                                                    </li>
+                                                    <li>
+                                                        <h3>PRICE : <br> @Html.DisplayFor(modelItem => item.Prix)</h3>
+                                                    </li>
+                                                </ul>
+                                            </div><!--specs-fig end-->
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="srv_det">
+                                            <h3>@Html.DisplayFor(modelItem => item.ProfilJardin.Name)</h3>
+                                            <p>@Html.DisplayFor(modelItem => item.Description)</p>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                                        </div><!--srv_det end-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+                                                    }
+                                                }
+
+
+
+
+
+
+
+
+
+
+
+<script>
+                    $(document).ready(function () {
+                        $("#orderr").change(function () {
+                            var ddtext = $("#orderr option:selected").text();
+                            $("#hidden1").val(ddtext);
+
+                        })
+
+                    })
+
+</script>
+
+
+<style>
+    #ahmed {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    #orderr {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    #ahmed1 {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    #search {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    #rech {
+        display: inline-block;
+        margin-right: 30px;
+    }
+
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 5px 2px;
+        cursor: pointer;
+    }
+
+    .button3 {
+        border-radius: 8px;
+    }
+</style>
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="css/animate.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="revolution/css/settings.css">
+<link rel="stylesheet" type="text/css" href="revolution/css/navigation.css">
+<link rel="stylesheet" type="text/css" href="css/line-awesome.css">
+<link rel="stylesheet" type="text/css" href="css/line-awesome-font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="lib/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/responsive.css">
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/popper.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="lib/slick/slick.min.js"></script>
+<script type="text/javascript" src="js/script.js"></script>

@@ -1,0 +1,163 @@
+@media (max-width:1600px) {
+.random-reggae-part p{
+	font-size: 14px;
+}
+.random-part-tracks-sec .element-box, .invoice-w, .big-error-w {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.all-wrapper {
+  margin: 0 auto;
+  max-width: 100%;
+}
+.author-page {
+  margin-left: 20px;
+}
+.element-box, .invoice-w, .big-error-w{
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+.middle-part-main {
+  display: inherit;
+  margin: 0 auto;
+  width: 85%;
+}
+
+.login-register-part, .thumbnail-caption{
+  position: relative;
+}
+.login-register-part {
+  float: left;
+  width: 100%;
+}
+
+}
+
+@media (max-width:1150px) {
+.all-wrapper {
+  margin: 0 auto;
+  max-width:95%;
+}
+.menu-side-w .logged-user-menu ul li a i{
+	margin-right:7px;
+}
+
+.middle-part-main {
+  width:85%;
+}
+}
+
+@media (max-width:1024px) {
+body {
+  overflow-x: hidden;
+}
+.header-spacer-middle {
+  height: 30px;
+}
+.header-layouts-spacer-middle {
+  height:30px;
+}
+.header-spacer {
+  display: block;
+  height: 30px;
+}
+.header-spacer-small{
+	height: 60px;
+}
+.header{
+	height: 70px;
+}
+.fixed-sidebar-right{
+	top: 0;
+}
+.all-wrapper {
+  max-width: inherit;
+}
+
+.main-header{
+  max-width: inherit;
+}
+
+.community-badges-box .container {
+  min-width: 100%;
+}
+.your-account-setting-top-part .container {
+  min-width: 100%;
+}
+
+}
+
+/************ Main **************/
+@media (max-width:991px) {
+.friends-groups-banner-mobile .container{
+  min-width: 100%!important;
+}
+} 
+
+
+
+@media (max-width: 767px) {
+.community-badges-box .container {
+  width:100%;
+}
+.content-middle-box{
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+.all-pages-full-container .container{
+  min-width: 100%;
+}
+
+.all-wrapper {
+  margin: 0 auto;
+  max-width: 95%;
+}
+.login-register-part, .thumbnail-caption{
+  position: relative;
+}
+
+.header-top-img .container {
+  min-width: 100%;
+  width: 100%;
+}
+
+.middle-part-main .container {
+  min-width: 100%;
+  width: 100%;
+}
+
+} 
+
+/************ iphone **************/
+@media (max-width:640px) {
+.accordion-full-part .ui-block {
+  float: left;
+  width: 100%;
+  background: transparent!important;
+}
+.birthday-item{
+  width: 100%;
+  float: left;
+}
+
+.panel-body .ui-block {
+  float: left;
+  width: 100%;
+  background: transparent!important;
+}
+
+.element-box, .invoice-w, .big-error-w{
+  width: 100%;
+}
+
+}
+
+
+@media (max-width:480px) {
+
+} 
+
+
+ul.chat-settings {margin-top:10px !important;}
+
